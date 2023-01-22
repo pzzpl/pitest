@@ -42,7 +42,8 @@ public class TdgTestPrioritiser implements TestPrioritiser {
   private List<TestInfo> prioritizeTests(ClassName clazz,
       Collection<TestInfo> testsForMutant) {
     final List<TestInfo> sortedTis = new ArrayList<>(testsForMutant);
-    sortedTis.sort(new MyTestInfoPriorisationComparator(clazz, TIME_WEIGHTING_FOR_DIRECT_UNIT_TESTS));
+    sortedTis.sort(new RandomTestInfoPriorisationComparator(clazz, TIME_WEIGHTING_FOR_DIRECT_UNIT_TESTS));
+    // sortedTis.sort(new MyTestInfoPriorisationComparator(clazz, TIME_WEIGHTING_FOR_DIRECT_UNIT_TESTS));
     return sortedTis;
   }
 

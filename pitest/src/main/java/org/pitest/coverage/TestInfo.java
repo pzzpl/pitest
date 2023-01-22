@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 import org.pitest.classinfo.ClassName;
 import java.util.Optional;
-
+import java.util.Random;
 
 public final class TestInfo implements Serializable {
 
@@ -31,7 +31,7 @@ public final class TestInfo implements Serializable {
   public   int                    distance;// tdg中变异体和测试用例的距离
   private final int               time;
   private final int               blocks;
-
+  public  int               ran;// 随机值，用于20次随机试验
   private final ClassName         testee;
 
   public TestInfo(final String definingClass, final String name,
@@ -41,6 +41,8 @@ public final class TestInfo implements Serializable {
     this.time = time;
     this.testee = testee.orElse(null);
     this.blocks = blocksCovered;
+    Random r = new Random();
+    ran = r.nextInt(1000); // 用于测试顺序随机试验
 // System.out.println("lzp  testinfo definingCLass + name +  time + testee + blocksCovered" + definingClass + ":" + name + ":" + time + ":" + testee + ":" + blocksCovered);
   }
  public TestInfo(final String definingClass, final String name,

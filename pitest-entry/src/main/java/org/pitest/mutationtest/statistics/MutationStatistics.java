@@ -83,7 +83,9 @@ public final class MutationStatistics {
     
     out.println("Enhanced functionality available at https://www.arcmutate.com/");
   }
-
+  public long getnumOfTestsRun() {
+    return this.numberOfTestsRun;
+  }
   private String getTestsPerMutation() {
     if (this.getTotalMutations() == 0) {
       return "0";
