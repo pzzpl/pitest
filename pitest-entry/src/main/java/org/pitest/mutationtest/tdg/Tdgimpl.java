@@ -78,8 +78,8 @@ public class Tdgimpl implements Tdg{
         this.target2Tests = target2Tests;
         // Log.getLogger().info("after filtered  this.target2Tests  : " + target2Tests);
         // System.out.println("reachableWithWeigh" + reachableWithWeigh);
-        // Log.getLogger().info("no no no no  dist");
-        Log.getLogger().info("test order with dist");
+        Log.getLogger().info("no no no no  dist");
+        // Log.getLogger().info("test order with dist");
     }
 
     @Override
@@ -98,9 +98,9 @@ public class Tdgimpl implements Tdg{
             if (!classMethodNames.containsKey(testClass)) continue;
             for (String methodNames : classMethodNames.get(testClass) ) {
                 
-                // res.add(this.createFromMethodName(methodNames, testClass));
+                res.add(this.createFromMethodName(methodNames, testClass));
                 
-                res.add(this.createFromMethodName(methodNames, testClass,name.toString()));// 开启距离排序
+                // res.add(this.createFromMethodName(methodNames, testClass,name.toString()));// 开启距离排序
             }
             tf.addAll(res);
         }

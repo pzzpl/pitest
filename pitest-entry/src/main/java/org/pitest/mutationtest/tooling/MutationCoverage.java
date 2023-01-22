@@ -315,29 +315,44 @@ public class MutationCoverage {
 
      //写timeings的数据到文件，让python来统计
      try {
-      String revistionNum = this.data.getRevision();
-      System.out.println("lzplzp " + revistionNum);
-      LOG.fine("persisting revisionNum is " + revistionNum);
-      File revDir = new File("./pitestStat");
-      if (!revDir.exists()) { // 创建pitestStat文件夹
-          LOG.fine("revDir does not exists");
-          revDir.mkdir();
+        String revistionNum = this.data.getRevision();
+        System.out.println("lzplzp " + revistionNum);
+        LOG.fine("persisting revisionNum is " + revistionNum);
+        File revDir = new File("./pitestStat");
+        if (!revDir.exists()) { // 创建pitestStat文件夹
+            LOG.fine("revDir does not exists");
+            revDir.mkdir();
+        }
+      //写时间数据
+      File revisionlogFile = new File(revDir, revistionNum + ".log");
+      OutputStream outputStream = new FileOutputStream(revisionlogFile);
+      long total = 0;
+      for (final Entry<Stage, TimeSpan> each : this.timings.timings.entrySet()) {
+        total = total + each.getValue().duration();
+        // ps.println("> " + each.getKey() + " : " + each.getValue());
+        outputStream.write((each.getValue().toString() + " ").getBytes());
       }
-    //写时间数据
-    File revisionlogFile = new File(revDir, revistionNum + ".log");
-    OutputStream outputStream = new FileOutputStream(revisionlogFile);
-    long total = 0;
-    for (final Entry<Stage, TimeSpan> each : this.timings.timings.entrySet()) {
-      total = total + each.getValue().duration();
-      // ps.println("> " + each.getKey() + " : " + each.getValue());
-      outputStream.write((each.getValue().toString() + " ").getBytes());
-    }
-    outputStream.close();
+      outputStream.close();
+
+
+
+      //写numofTestRan数据
+      File numofTestRan = new File("./numofTestRan");
+      if (!numofTestRan.exists()) { // 创建pitestStat文件夹
+          LOG.fine("numofTestRan does not exists");
+          numofTestRan.mkdir();
+      }
+      File numofTestRanFile = new File(numofTestRan, revistionNum + ".log");
+      OutputStream numofTestRanoutputStream = new FileOutputStream(numofTestRanFile);
+      System.out.println("stats.getnumOfTestsRun() : " + stats.getnumOfTestsRun());
+      numofTestRanoutputStream.write((stats.getnumOfTestsRun()+"").getBytes());
+      numofTestRanoutputStream.close();
 
     } catch(Exception e) {
       LOG.fine("python read file error");
     }
 
+    
     stats.report(ps);
   }
 
